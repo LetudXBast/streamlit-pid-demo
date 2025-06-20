@@ -3,6 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint
 
+st.set_page_config(layout="wide")
+
+
 # 🔧 Widgets Streamlit
 st.title("Simulation PID sur système du 1er ordre")
 with st.expander("📘 Afficher / masquer l'introduction pédagogique", expanded=True):
@@ -74,18 +77,20 @@ ax1.plot(t, y, label='Sortie $y(t)$', linewidth=3)
 ax1.axhline(1.0, color='gray', linestyle='--', linewidth=1)
 ax1.axhline(0.95, color='red', linestyle='--', linewidth=1)
 ax1.axhline(1.05, color='red', linestyle='--', linewidth=1)
-ax1.set_title('Réponse du système', weight='bold')
-ax1.set_xlabel('Temps (s)', weight='bold')
-ax1.set_ylabel('Sortie', weight='bold')
+ax1.set_title('Réponse du système', weight='bold', fontsize=22)
+ax1.set_xlabel('Temps (s)', weight='bold', fontsize=18)
+ax1.set_ylabel('Sortie', weight='bold', fontsize=18)
+ax1.tick_params(axis='both', labelsize=15)
+ax1.legend(fontsize=15)
 ax1.legend()
 ax1.grid(True)
 
 # Courbe u(t)
 ax2.plot(t, u, label='Commande $u(t)$', color='orange', linewidth=3)
-ax2.set_title('Commande envoyée', weight='bold')
-ax2.set_xlabel('Temps (s)', weight='bold')
-ax2.set_ylabel('Commande', weight='bold')
-ax2.legend()
+ax2.set_title('Commande envoyée', weight='bold', fontsize=22)
+ax2.set_xlabel('Temps (s)', weight='bold', fontsize=18)
+ax2.set_ylabel('Commande', weight='bold', fontsize=18)
+ax2.legend(fontsize=15)
 ax2.grid(True)
 
 # Axes en gras avec flèches
