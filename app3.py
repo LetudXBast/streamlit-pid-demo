@@ -67,10 +67,10 @@ def pid_simulation(Kp, Ki, Kd, setpoint=1.0, t_max=50, dt=0.1):
 t, y, u = pid_simulation(Kp, Ki, Kd, t_max=t_max)
 
 # 🎨 Affichage des courbes
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 7))
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 8))
 
 # Courbe y(t)
-ax1.plot(t, y, label='Sortie $y(t)$', linewidth=2)
+ax1.plot(t, y, label='Sortie $y(t)$', linewidth=3)
 ax1.axhline(1.0, color='gray', linestyle='--', linewidth=1)
 ax1.axhline(0.95, color='red', linestyle='--', linewidth=1)
 ax1.axhline(1.05, color='red', linestyle='--', linewidth=1)
@@ -81,7 +81,7 @@ ax1.legend()
 ax1.grid(True)
 
 # Courbe u(t)
-ax2.plot(t, u, label='Commande $u(t)$', color='orange', linewidth=2)
+ax2.plot(t, u, label='Commande $u(t)$', color='orange', linewidth=3)
 ax2.set_title('Commande envoyée', weight='bold')
 ax2.set_xlabel('Temps (s)', weight='bold')
 ax2.set_ylabel('Commande', weight='bold')
