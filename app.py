@@ -50,7 +50,7 @@ ax.tick_params(width=1.5)
 # Flèches pour les axes
 ax.annotate('', xy=(T_max, 0), xytext=(0, 0),
             arrowprops=dict(facecolor='black', arrowstyle='->', lw=1.5))
-ax.annotate('', xy=(0, max(height)+0.1), xytext=(0, 0),
+ax.annotate('', xy=(0, max(max(height),1) + 0.1), xytext=(0, 0),
             arrowprops=dict(facecolor='black', arrowstyle='->', lw=1.5))
 
 ax.set_xlim(0, T_max)
