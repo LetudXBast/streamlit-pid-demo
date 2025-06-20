@@ -53,8 +53,16 @@ functions_list = [
     sp.cos(x) / (x + 0.01)  # évite 1/0 (pseudo-discontinue)
 ]
 
-# --- Initialisation de la fonction cible dans la session ---
-if "target_expr" not in st.session_state or st.button("🔄 Nouvelle fonction"):
+# # --- Initialisation de la fonction cible dans la session ---
+# if "target_expr" not in st.session_state or st.button("🔄 Nouvelle fonction"):
+#     st.session_state["target_expr"] = random.choice(functions_list)
+
+# --- Bouton en haut + réinitialisation si cliqué ---
+if "target_expr" not in st.session_state:
+    st.session_state["target_expr"] = random.choice(functions_list)
+
+# 👇 ce bloc doit être après l'initialisation
+if st.button("🔄 Nouvelle fonction"):
     st.session_state["target_expr"] = random.choice(functions_list)
 
 # --- Fonction cible courante ---
