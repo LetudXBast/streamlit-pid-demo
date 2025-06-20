@@ -7,8 +7,9 @@ import random
 import plotly.graph_objects as go # Pour les graphiques interactifs (zoom...)
 
 
-if "screen_width" not in st.session_state:
-    st.session_state.screen_width = 700  # valeur par défaut desktop
+# Détection simplifiée de mobile
+is_mobile = st.user_agent and "Mobile" in st.user_agent.device or "Android" in st.user_agent.string
+
 
 # Injecter JS pour détecter la largeur réelle de l'écran
 st.components.v1.html("""
@@ -189,7 +190,10 @@ try:
 )
 
 
-    st.plotly_chart(fig, use_container_width=False, width=plot_width)
+    if is_mobile:
+        st.plotly_chart(fig, use_container_width=False, width=360, height=280)
+    else:
+        st.plotly_chart(fig, use_container_width=True)
 
     # --- Feedback ---
     if score < 0.1:
