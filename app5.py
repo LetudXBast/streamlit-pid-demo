@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 import sympy as sp
+import random
 
 # --- Configuration Streamlit ---
 st.set_page_config(page_title="Devine la fonction", layout="centered")
@@ -32,15 +33,38 @@ with st.expander("ℹ️ Comment proposer une fonction ?", expanded=False):
     """)
 
 
-# --- Étape 1 : définir la fonction cible ---
+# --- Définition des fonctions cibles disponibles ---
 x = sp.Symbol('x')
-target_expr = x**2 - 3
+functions_list = [
+    x,
+    x**2 - 3,
+    -x**2 + 2*x + 1,
+    x**3 - x,
+    abs(x),
+    x**2 + sp.sin(x),
+    sp.sin(x),
+    sp.cos(x) + 1,
+    sp.sqrt(abs(x)),
+    sp.exp(-x**2),
+    x * sp.exp(-x**2),
+    sp.sin(x**2),
+    sp.log(x**2 + 1),
+    x**2 * sp.cos(x),
+    sp.cos(x) / (x + 0.01)  # évite 1/0 (pseudo-discontinue)
+]
+
+# --- Initialisation de la fonction cible dans la session ---
+if "target_expr" not in st.session_state or st.button("🔄 Nouvelle fonction"):
+    st.session_state["target_expr"] = random.choice(functions_list)
+
+# --- Fonction cible courante ---
+target_expr = st.session_state["target_expr"]
 target_func = sp.lambdify(x, target_expr, 'numpy')
 
-# --- Étape 2 : champ de saisie utilisateur ---
-user_input = st.text_input("Propose une fonction en x :", value="x**2")
+# --- Saisie utilisateur ---
+user_input = st.text_input("Propose une fonction en x :", value="x")
 
-# --- Étape 3 : tracer les courbes ---
+# --- Tracé des courbes ---
 x_vals = np.linspace(-6, 6, 500)
 try:
     user_expr = sp.sympify(user_input)
@@ -49,34 +73,28 @@ try:
     y_target = target_func(x_vals)
     y_user = user_func(x_vals)
 
-    # --- Calcul d'un écart (score) ---
+    # Calcul de l'écart
     score = np.mean(np.abs(y_target - y_user))
 
-    # --- Affichage ---
+    # Graphique
     fig, ax = plt.subplots(figsize=(8, 5))
-
-    # Ajout des courbes avec styles différenciés
     ax.plot(x_vals, y_target, label="Fonction cible", color='blue', linewidth=2)
     ax.plot(x_vals, y_user, label="Ta fonction", color='red', linestyle='--', linewidth=2)
-
-    # Grille + axes
     ax.grid(True, which='both', linestyle=':', linewidth=0.6)
     ax.axhline(0, color='black', linewidth=1)
     ax.axvline(0, color='black', linewidth=1)
-
     ax.set_xlim(-6, 6)
     ax.set_title("Comparaison des courbes")
     ax.legend()
-
     st.pyplot(fig)
 
-    # --- Feedback ---
+    # Feedback
     if score < 0.1:
         st.success("🎉 Bravo, tu as trouvé la bonne fonction !")
     elif score < 1:
-        st.info("🧐 Pas mal ! Tu t'en approches.")
+        st.info("🧐 Tu t'en rapproches.")
     else:
-        st.warning("❌ Trop d'écart. Essaie encore.")
+        st.warning("❌ Essaie encore.")
 
     st.write(f"Écart moyen entre les courbes : {score:.3f}")
 
