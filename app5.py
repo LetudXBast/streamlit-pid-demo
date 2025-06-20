@@ -12,7 +12,7 @@ st.title("🎯 Devine la fonction cachée")
 
 
 with st.expander("ℹ️ Comment proposer une fonction ?", expanded=False):
-    st.markdown("""
+    st.markdown(r"""
     Voici quelques règles pour écrire correctement une fonction :
 
     - Utilise `x` comme variable.
