@@ -35,7 +35,7 @@ for i in range(1, len(time)):
 
 # 🎨 Affichage
 fig, ax = plt.subplots(figsize=(10, 5))
-ax.plot(time, height, label="Hauteur d'eau h(t)", color='blue')
+ax.plot(time, height, label="Hauteur d'eau h(t)", color='blue', linewidth=3)
 ax.axhline(setpoint, color='red', linestyle='--', label='Consigne (1 m)')
 
 # Personnalisation des axes
@@ -62,9 +62,3 @@ ax.legend()
 ax.grid(True)
 
 st.pyplot(fig)
-
-def retirer_eau(quantite):
-    global hauteur_eau
-    hauteur_eau -= quantite
-    if hauteur_eau < 0:
-        hauteur_eau = 0
