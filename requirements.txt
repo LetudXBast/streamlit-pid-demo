@@ -4,3 +4,4 @@ matplotlib
 scipy
 sympy
 plotly>=5.18
+streamlit-javascript
