@@ -6,7 +6,7 @@ from scipy.integrate import odeint
 # 🔧 Widgets Streamlit
 st.title("Simulation PID sur système du 1er ordre")
 with st.expander("📘 Afficher / masquer l'introduction pédagogique", expanded=True):
-    st.markdown("""
+    st.markdown(r"""
     ## 🧪 Objectif pédagogique
 
     Ce simulateur interactif permet de comprendre l'effet des différents termes d'un **correcteur PID** sur la réponse d’un système du premier ordre.
