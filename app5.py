@@ -7,6 +7,31 @@ import sympy as sp
 st.set_page_config(page_title="Devine la fonction", layout="centered")
 st.title("🎯 Devine la fonction cachée")
 
+
+with st.expander("ℹ️ Comment proposer une fonction ?", expanded=False):
+    st.markdown("""
+    Voici quelques règles pour écrire correctement une fonction :
+
+    - Utilise `x` comme variable.
+    - Les opérations doivent suivre la syntaxe Python :
+        - Multiplication : `*` → exemple : `3*x`
+        - Puissance : `**` → exemple : `x**2` pour \(x^2\)
+        - Division : `/` → exemple : `1/x`
+        - Parenthèses : `()` pour grouper les expressions
+    - Fonctions usuelles disponibles :
+        - `sin(x)` : sinus
+        - `cos(x)` : cosinus
+        - `exp(x)` : exponentielle \(e^x\)
+        - `log(x)` : logarithme népérien
+        - `sqrt(x)` : racine carrée
+        - `abs(x)` : valeur absolue
+    - ⚠️ Évite d’écrire `e^x`, préfère `exp(x)`
+    - Exemple valide : `exp(-x**2) + sin(x)`
+
+    Essaie de proposer une fonction continue et définie sur \[-6 ; 6\].
+    """)
+
+
 # --- Étape 1 : définir la fonction cible ---
 x = sp.Symbol('x')
 target_expr = x**2 - 3
