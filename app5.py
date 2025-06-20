@@ -108,45 +108,37 @@ try:
     # Calcul de l'écart
     score = np.mean(np.abs(y_target - y_user))
 
+    # --- Tracé interactif Plotly ---
+    fig = go.Figure()
 
-    
-fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=x_vals, y=y_target,
+        mode='lines',
+        name='Fonction cible',
+        line=dict(color='blue')
+    ))
 
-# Fonction cible
-fig.add_trace(go.Scatter(
-    x=x_vals, y=y_target,
-    mode='lines',
-    name='Fonction cible',
-    line=dict(color='blue')
-))
+    fig.add_trace(go.Scatter(
+        x=x_vals, y=y_user,
+        mode='lines',
+        name='Ta fonction',
+        line=dict(color='red', dash='dash')
+    ))
 
-# Fonction proposée
-fig.add_trace(go.Scatter(
-    x=x_vals, y=y_user,
-    mode='lines',
-    name='Ta fonction',
-    line=dict(color='red', dash='dash')
-))
+    fig.update_layout(
+        title="Comparaison des courbes",
+        xaxis_title="x",
+        yaxis_title="y",
+        legend=dict(x=0.02, y=0.98),
+        height=500
+    )
 
-# Personnalisation du graphique
-fig.update_layout(
-    title="Comparaison des courbes",
-    xaxis_title="x",
-    yaxis_title="y",
-    legend=dict(x=0.02, y=0.98),
-    height=500
-)
+    fig.update_xaxes(showgrid=True, zeroline=True)
+    fig.update_yaxes(showgrid=True, zeroline=True)
 
-fig.update_xaxes(showgrid=True, zeroline=True)
-fig.update_yaxes(showgrid=True, zeroline=True)
+    st.plotly_chart(fig, use_container_width=True)
 
-# Affichage interactif
-st.plotly_chart(fig, use_container_width=True)
-
-
-
-
-    # Feedback
+    # --- Feedback ---
     if score < 0.1:
         st.success("🎉 Bravo, tu as trouvé la bonne fonction !")
     elif score < 1:
