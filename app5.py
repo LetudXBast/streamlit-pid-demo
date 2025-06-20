@@ -51,7 +51,7 @@ easy_functions = [
     x**3,
     -x**3 + x,
     x**3 - 3*x,
-    sp.abs(x),
+    sp.Abs(x),
     sp.sqrt(x + 6),  # définie sur [-6; 6]
     sp.exp(x),
     sp.exp(-x),
@@ -62,11 +62,11 @@ easy_functions = [
 
 hard_functions = [
     x**3 - x,
-    abs(x),
+    sp.Abs(x),
     x**2 + sp.sin(x),
     sp.sin(x),
     sp.cos(x) + 1,
-    sp.sqrt(abs(x)),
+    sp.sqrt(sp.Abs(x)),
     sp.exp(-x**2),
     x * sp.exp(-x**2),
     sp.sin(x**2),
