@@ -6,6 +6,29 @@ import random
 
 import plotly.graph_objects as go # Pour les graphiques interactifs (zoom...)
 
+
+if "screen_width" not in st.session_state:
+    st.session_state.screen_width = 700  # valeur par défaut desktop
+
+# Injecter JS pour détecter la largeur réelle de l'écran
+st.components.v1.html("""
+<script>
+    const width = window.innerWidth;
+    window.parent.postMessage({type: 'streamlit:setComponentValue', value: width}, "*");
+</script>
+""", height=0)
+
+# Lire la valeur transmise (via message)
+width = st.experimental_get_query_params().get("width")
+if width:
+    try:
+        st.session_state.screen_width = int(width[0])
+    except:
+        pass
+
+
+
+
 # --- Configuration Streamlit ---
 st.set_page_config(page_title="Devine la fonction", layout="wide")
 st.title("🎯 Devine la fonction cachée")
@@ -96,6 +119,14 @@ target_func = sp.lambdify(x, target_expr, 'numpy')
 # --- Saisie utilisateur ---
 user_input = st.text_input("Propose une fonction en x :", value="x")
 
+
+# --- Largeur du graphique adaptative ---
+if st.session_state.screen_width < 500:
+    plot_width = st.session_state.screen_width - 40  # marge de sécurité
+else:
+    plot_width = 700
+
+
 # --- Tracé des courbes ---
 x_vals = np.linspace(-6, 6, 500)
 try:
@@ -158,7 +189,7 @@ try:
 )
 
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=False, width=plot_width)
 
     # --- Feedback ---
     if score < 0.1:
