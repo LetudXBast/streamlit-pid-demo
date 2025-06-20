@@ -129,6 +129,9 @@ try:
         name='Ta fonction',
         line=dict(color='red', dash='dash')
     ))
+    # Détection simple de smartphone
+    client_width = st.get_option("browser.clientWidth")
+    is_mobile = client_width is not None and client_width < 480
 
     fig.update_layout(
         title="Comparaison des courbes",
@@ -163,7 +166,11 @@ try:
 )
 
 
-    st.plotly_chart(fig, use_container_width=True)
+    if is_mobile:
+        st.plotly_chart(fig, use_container_width=False, width=320)
+    else:
+        st.plotly_chart(fig, use_container_width=True)
+
 
     # --- Feedback ---
     if score < 0.1:
