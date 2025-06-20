@@ -7,8 +7,8 @@ import random
 import plotly.graph_objects as go # Pour les graphiques interactifs (zoom...)
 
 
-# Détection simplifiée de mobile
-is_mobile = st.user_agent and "Mobile" in st.user_agent.device or "Android" in st.user_agent.string
+# # Détection simplifiée de mobile
+# is_mobile = st.user_agent and "Mobile" in st.user_agent.device or "Android" in st.user_agent.string
 
 
 # --- Configuration Streamlit ---
@@ -163,9 +163,6 @@ try:
 )
 
 
-if is_mobile:
-    st.plotly_chart(fig, use_container_width=False, width=360, height=280)
-else:
     st.plotly_chart(fig, use_container_width=True)
 
     # --- Feedback ---
