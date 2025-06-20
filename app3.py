@@ -67,7 +67,7 @@ def pid_simulation(Kp, Ki, Kd, setpoint=1.0, t_max=50, dt=0.1):
 t, y, u = pid_simulation(Kp, Ki, Kd, t_max=t_max)
 
 # 🎨 Affichage des courbes
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 7))
 
 # Courbe y(t)
 ax1.plot(t, y, label='Sortie $y(t)$', linewidth=2)
