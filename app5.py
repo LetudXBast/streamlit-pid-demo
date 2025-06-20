@@ -12,7 +12,7 @@ import plotly.graph_objects as go # Pour les graphiques interactifs (zoom...)
 
 
 # --- Configuration Streamlit ---
-st.set_page_config(page_title="Devine la fonction", layout="wide")
+st.set_page_config(page_title="Devine la fonction", layout="centered")
 st.title("🎯 Devine la fonction cachée")
 
 
