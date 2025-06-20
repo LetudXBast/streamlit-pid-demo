@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint
 
-st.set_page_config(layout="wide")
+st.set_page_config(layout="centered")
 
 
 # 🔧 Widgets Streamlit
