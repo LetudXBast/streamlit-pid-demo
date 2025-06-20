@@ -2,14 +2,14 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
 
-st.title("Simulation d'une bassine avec correcteur proportionnel")
+st.title("Simulation de la hauteur d'eau dans une bassine avec correcteur proportionnel")
 
 # 🔧 Curseurs interactifs
 T_max = st.slider("Durée de la simulation (minutes)", 10, 200, 50)
 Kp = st.slider("Gain proportionnel Kp", 0.0, 2.0, 0.2, step=0.05)
 Q_in_manual = st.slider("Débit d'entrée Q_in (m³/min) si Kp = 0", 0.0, 1.0, 0.2, step=0.01)
 Q_out = st.slider("Débit de sortie Q_out (m³/min)", 0.0, 1.0, 0.1, step=0.01)
-initial_height = st.slider("Hauteur initiale Q_init (m)", 0.0, 2.0, 0.0, step=0.05)
+initial_height = st.slider("Hauteur initiale h_init (m)", 0.0, 2.0, 0.0, step=0.05)
 
 # 📈 Temps de simulation
 time = np.linspace(0, T_max, 500)
@@ -35,7 +35,7 @@ for i in range(1, len(time)):
 
 # 🎨 Affichage
 fig, ax = plt.subplots(figsize=(10, 5))
-ax.plot(time, height, label="Hauteur d'eau", color='blue')
+ax.plot(time, height, label="Hauteur d'eau h(t)", color='blue')
 ax.axhline(setpoint, color='red', linestyle='--', label='Consigne (1 m)')
 
 # Personnalisation des axes
