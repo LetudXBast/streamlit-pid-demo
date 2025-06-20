@@ -35,10 +35,12 @@ with st.expander("ℹ️ Comment proposer une fonction ?", expanded=False):
 
 # --- Définition des fonctions cibles disponibles ---
 x = sp.Symbol('x')
-functions_list = [
+easy_functions = [
     x,
     x**2 - 3,
     -x**2 + 2*x + 1,
+]
+hard_functions = [
     x**3 - x,
     abs(x),
     x**2 + sp.sin(x),
@@ -50,20 +52,22 @@ functions_list = [
     sp.sin(x**2),
     sp.log(x**2 + 1),
     x**2 * sp.cos(x),
-    sp.cos(x) / (x + 0.01)  # évite 1/0 (pseudo-discontinue)
+    sp.cos(x) / (x + 0.01)
 ]
 
-# # --- Initialisation de la fonction cible dans la session ---
-# if "target_expr" not in st.session_state or st.button("🔄 Nouvelle fonction"):
-#     st.session_state["target_expr"] = random.choice(functions_list)
+# --- Choix du niveau ---
+niveau = st.radio("Choisis ton niveau :", ["Facile", "Difficile"], horizontal=True)
 
-# --- Bouton en haut + réinitialisation si cliqué ---
+# --- Génération de la fonction cible ---
 if "target_expr" not in st.session_state:
-    st.session_state["target_expr"] = random.choice(functions_list)
+    st.session_state["niveau"] = niveau
+    st.session_state["target_expr"] = random.choice(easy_functions if niveau == "Facile" else hard_functions)
 
-# 👇 ce bloc doit être après l'initialisation
+# --- Changement de fonction si clic sur bouton ---
 if st.button("🔄 Nouvelle fonction"):
-    st.session_state["target_expr"] = random.choice(functions_list)
+    st.session_state["niveau"] = niveau
+    st.session_state["target_expr"] = random.choice(easy_functions if niveau == "Facile" else hard_functions)
+
 
 # --- Fonction cible courante ---
 target_expr = st.session_state["target_expr"]
