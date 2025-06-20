@@ -150,3 +150,19 @@ try:
 
 except Exception as e:
     st.error(f"Erreur dans la fonction saisie : {e}")
+
+
+fig, ax = plt.subplots()
+ax.plot([0, 1, 2], [0, 1, 0])
+
+# Mettre les labels d'axes en gras
+ax.set_xlabel("Axe X", fontweight='bold')
+ax.set_ylabel("Axe Y", fontweight='bold')
+
+# Mettre les graduations (ticks) en gras
+ax.tick_params(axis='both', labelsize=12, labelweight='bold')
+
+# Mettre le titre en gras (si besoin)
+ax.set_title("Titre du graphique", fontweight='bold')
+
+st.pyplot(fig)
