@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import sympy as sp
 import random
 
+import plotly.graph_objects as go # Pour les graphiques interactifs (zoom...)
+
 # --- Configuration Streamlit ---
 st.set_page_config(page_title="Devine la fonction", layout="centered")
 st.title("🎯 Devine la fonction cachée")
@@ -37,9 +39,27 @@ with st.expander("ℹ️ Comment proposer une fonction ?", expanded=False):
 x = sp.Symbol('x')
 easy_functions = [
     x,
-    x**2 - 3,
-    -x**2 + 2*x + 1,
+    2*x,
+    -x,
+    x + 3,
+    x - 2,
+    x**2,
+    -x**2,
+    x**2 + 2,
+    x**2 - 3*x + 1,
+    -x**2 + 4*x - 1,
+    x**3,
+    -x**3 + x,
+    x**3 - 3*x,
+    sp.abs(x),
+    sp.sqrt(x + 6),  # définie sur [-6; 6]
+    sp.exp(x),
+    sp.exp(-x),
+    sp.log(x + 7),   # définie sur [-6; 6]
+    sp.sin(x),
+    sp.cos(x)
 ]
+
 hard_functions = [
     x**3 - x,
     abs(x),
@@ -88,17 +108,43 @@ try:
     # Calcul de l'écart
     score = np.mean(np.abs(y_target - y_user))
 
-    # Graphique
-    fig, ax = plt.subplots(figsize=(8, 5))
-    ax.plot(x_vals, y_target, label="Fonction cible", color='blue', linewidth=2)
-    ax.plot(x_vals, y_user, label="Ta fonction", color='red', linestyle='--', linewidth=2)
-    ax.grid(True, which='both', linestyle=':', linewidth=0.6)
-    ax.axhline(0, color='black', linewidth=1)
-    ax.axvline(0, color='black', linewidth=1)
-    ax.set_xlim(-6, 6)
-    ax.set_title("Comparaison des courbes")
-    ax.legend()
-    st.pyplot(fig)
+
+    
+fig = go.Figure()
+
+# Fonction cible
+fig.add_trace(go.Scatter(
+    x=x_vals, y=y_target,
+    mode='lines',
+    name='Fonction cible',
+    line=dict(color='blue')
+))
+
+# Fonction proposée
+fig.add_trace(go.Scatter(
+    x=x_vals, y=y_user,
+    mode='lines',
+    name='Ta fonction',
+    line=dict(color='red', dash='dash')
+))
+
+# Personnalisation du graphique
+fig.update_layout(
+    title="Comparaison des courbes",
+    xaxis_title="x",
+    yaxis_title="y",
+    legend=dict(x=0.02, y=0.98),
+    height=500
+)
+
+fig.update_xaxes(showgrid=True, zeroline=True)
+fig.update_yaxes(showgrid=True, zeroline=True)
+
+# Affichage interactif
+st.plotly_chart(fig, use_container_width=True)
+
+
+
 
     # Feedback
     if score < 0.1:
