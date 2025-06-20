@@ -6,6 +6,18 @@ import random
 
 import plotly.graph_objects as go # Pour les graphiques interactifs (zoom...)
 
+import streamlit.components.v1 as components
+import streamlit as st
+
+if st.runtime.scriptrunner.script_run_context.is_running_with_streamlit:
+    is_mobile = st.runtime.scriptrunner.script_run_context.user_info.device_info.screen_width < 500
+else:
+    is_mobile = False
+
+# ensuite adapter width :
+plot_width = 350 if is_mobile else 700
+
+
 # --- Configuration Streamlit ---
 st.set_page_config(page_title="Devine la fonction", layout="centered")
 st.title("🎯 Devine la fonction cachée")
@@ -158,7 +170,7 @@ try:
 )
 
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=False, width=360, height=400)
 
     # --- Feedback ---
     if score < 0.1:
