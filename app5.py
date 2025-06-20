@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sympy as sp
 import random
-from streamlit_javascript import st_javascript
 
 import plotly.graph_objects as go # Pour les graphiques interactifs (zoom...)
 
@@ -113,9 +112,6 @@ try:
 
     # Calcul de l'écart
     score = np.mean(np.abs(y_target - y_user))
-    # Mesure réelle de la largeur de l'écran avec JS
-    screen_width = st_javascript("window.innerWidth") or 800
-    is_mobile = screen_width < 480
 
     # --- Tracé interactif Plotly ---
     fig = go.Figure()
@@ -133,9 +129,6 @@ try:
         name='Ta fonction',
         line=dict(color='red', dash='dash')
     ))
-    # Détection simple de smartphone
-    client_width = st.get_option("browser.clientWidth")
-    is_mobile = client_width is not None and client_width < 480
 
     fig.update_layout(
         title="Comparaison des courbes",
@@ -170,11 +163,7 @@ try:
 )
 
 
-    if is_mobile:
-        st.plotly_chart(fig, use_container_width=False, width=320)
-    else:
-        st.plotly_chart(fig, use_container_width=True)
-
+    st.plotly_chart(fig, use_container_width=True)
 
     # --- Feedback ---
     if score < 0.1:
