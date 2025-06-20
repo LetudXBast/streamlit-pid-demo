@@ -145,7 +145,7 @@ try:
     tickfont=dict(size=14, color='black')
 )
 
-fig.update_yaxes(
+    fig.update_yaxes(
     showgrid=True,
     zeroline=True,
     zerolinewidth=2,
